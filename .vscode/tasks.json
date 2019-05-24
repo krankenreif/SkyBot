@@ -6,7 +6,7 @@
         {
             "label": "python run",
             "type": "shell",
-            "command": "python main.py -telegram 461718350:AAEwA95TSfk698kPsc26DcQL1hkveRdS33I",
+            "command": "python main.py -telegram 461718350:AAGdJFS7JYP_XDMGLZNDl6YxO6bzi-GA_jM",
             "group": {
                 "kind": "build",
                 "isDefault": true
