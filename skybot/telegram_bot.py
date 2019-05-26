@@ -2,7 +2,7 @@ from skybot.api import API
 import requests
 from threading import Thread
 from telegram.ext import CommandHandler, CallbackQueryHandler, Updater, ConversationHandler, MessageHandler, Filters
-from telegram import KeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, InlineKeyboardButton
+from telegram import KeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, InlineKeyboardButton, Bot, Update
 
 class TelegramBot():
 
@@ -25,25 +25,24 @@ class TelegramBot():
         updater.start_polling()
         updater.idle()
 
-    def send_live(self, bot, update):
+    def send_live(self, bot: Bot, update: Update):
         print("send live")
         bot.send_message(chat_id=update.message.chat_id, text=self.__api.get_live())
 
-    def add(self, bot, update):
+    def add(self, bot: Bot, update: Update):
         print("add")
         keyboard = [[InlineKeyboardButton(text='pilot', callback_data="add_pilot")],
             [InlineKeyboardButton(text='club', callback_data="add_club")]]
         bot.send_message(chat_id=update.message.chat_id, text="Select what to add", reply_markup=InlineKeyboardMarkup(keyboard))
         
-    def add_club(self, bot, update):
+    def add_club(self, bot: Bot, update: Update):
         print("add club")
         query = update.callback_query
         club_ask = bot.edit_message_text(chat_id=query.message.chat_id, message_id=query.message.message_id, text="Please enter club number (only numbers allowed)")
         return TelegramBot.CLUB
 
-    def club_answer(self, bot, update):
-        update.message.reply_text(f"Club ")
-        update.message.reply_text("thank you")
+    def club_answer(self, bot: Bot, update: Update):
+        update.message.reply_text(f"Club {update.message.text}")
         return ConversationHandler.END
 
     def add_pilot(self, bot, update):
