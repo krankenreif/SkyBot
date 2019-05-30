@@ -20,5 +20,6 @@ class API(object):
             return_string = "Niemand ist heute mit Livetrack geflogen"
         return return_string
 
-    def get_pilot(self, id):
-        return self.__requests.get(API.API_URL + "users/" + id + "?extended", headers=API.REQUEST_HEADER, timeout=10, verify=False).json()
+    def get_pilots(self, club_id):
+        pilots = self.__requests.get("https://skylines.aero/api/users/?club=" + club_id, headers=API.REQUEST_HEADER, timeout=10, verify=False).json()["users"]
+        return [pilot["id"] for pilot in pilots]
